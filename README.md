@@ -1,76 +1,102 @@
-# Secure AWS Instructure
+# Secure AWS infrastructure
 
+Welcome to the project repository for Secure AWS infrastructure project. This repository contains the Terraform code for creating a secure AWS infrastructure using AWS services such as VPC, EC2, Target Group, Application Load Balancer (ALB), and Auto Scaling Group (ASG). This infrastructure is designed to provide a reliable and scalable environment for hosting applications.
+
+## Table of Contents
+
+- Description
+- How to Use
+  - Prerequisites
+  - Installation
+  - Configuration
+  - Deployment
+- Contributing
+  
 ## Description
 
-This project provides an infrastructure setup for creating a [Virtual Private Cloud (VPC)](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html) on [AWS](https://aws.amazon.com/) using [Terraform](https://www.terraform.io/). It includes the configuration for creating four subnets (two private and two public) in two availability zones, along with necessary resources such as Elastic IP, NAT gateway, Internet Gateway, route tables, and security groups.
+The goal of this project is to provide a secure and scalable AWS infrastructure using Terraform. The infrastructure consists of the following components:
 
-To create a VPC on AWS using Terraform, you can follow the step-by-step process outlined below. This guide assumes you have already set up Terraform and have the necessary credentials and access to an AWS account.
+- **VPC**: A Virtual Private Cloud (VPC) is created to isolate the resources within a private network. It provides control over network configuration, IP address ranges, and subnets.
 
-## Prerequisites
+- **EC2**: Amazon Elastic Compute Cloud (EC2) instances are launched within the VPC. These instances serve as the computing resources for hosting applications.
 
-- [Terraform installed](https://developer.hashicorp.com/terraform/downloads) and configured
-- [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) installed and configured
+- **Target Group**: A Target Group is created to define a set of EC2 instances that can receive traffic from an ALB.
 
-## Getting Started
+- **ALB**: An Application Load Balancer (ALB) is created to distribute incoming traffic across multiple EC2 instances. It improves availability and scalability of the application.
 
-To use this project, follow the steps below:
+- **ASG**: An Auto Scaling Group (ASG) is created to automatically adjust the number of EC2 instances based on the application load. It ensures that the desired capacity is maintained even if instances fail.
 
-1. Clone the repository to your local machine:
+This project follows best practices for security and reliability, incorporating features such as private subnets, security groups, and automated scaling.
+
+## How to Use
+
+Follow the steps below to use this project:
+
+### Prerequisites
+
+- Terraform installed on your local machine.
+- AWS account credentials with appropriate permissions to create resources.
+  
+### Installation
+
+1. Clone this repository to your local machine using the following command:
 
     ```shell
-    git clone https://github.com/Aahil13/How-to-create-a-VPC-in-AWS-using-Terraform.git
+    git clone https://github.com/Aahil13/Secure-AWS-Infrastructure.git
     ```
 
 2. Change into the project directory:
 
     ```shell
-    cd repo-name
+    cd Secure AWS Infrastructure
     ```
 
-3. Open the `VPC.tf` file and modify the necessary values. You should also define the following variables in the `variables.tf` file:
-   - `var.region`: Specify the AWS region where you want to create the VPC.
-   - `var.availablity_zone1` and `var.availablity_zone2`: Specify the availability zones for the subnets.
+### Configuration
 
-4. Initialize Terraform by running the following command:
+1. Use the variables.tf file to provide values for the variables used in the Terraform code. You can use the provided `variables.tf.example` file as a template:
+
+    ```shell
+    cp variables.tf.example variables.tf
+    ```
+
+    Modify the values in variables.tfvars to match your requirements.
+
+2. Review and modify the Terraform code as needed, such as adjusting resource configurations, adding or removing resources, etc.
+
+## Deployment
+
+1. Initialize the Terraform project:
 
     ```shell
     terraform init
     ```
 
-5. Create the infrastructure on AWS by running the following command:
+2. Validate the Terraform code:
+
+    ```shell
+    terraform validate
+    ```
+
+    Ensure that there are no errors in the code.
+
+3. Plan the infrastructure changes to be applied:
+
+    ```shell
+    terraform plan
+    ```
+
+    Review the planned changes to ensure they align with your expectations.
+
+4. Apply the infrastructure changes:
 
     ```shell
     terraform apply
     ```
 
-    Review the plan and type **yes** to confirm and create the resources.
+    Confirm the changes by typing yes when prompted.
 
-6. Once the `terraform apply` command completes, Terraform will output the details of the created VPC, subnets, and other resources. You can also verify the creation of resources in the AWS Management Console.
-
-## Cleaning Up
-
-To clean up and destroy the created resources when they are no longer needed, follow these steps:
-
-1. Change into the project directory, if you are not already there:
-
-    ```shell
-    cd repo-name
-    ```
-
-2. Run the following command to destroy the resources created by Terraform:
-
-    ```shell
-    terraform destroy
-    ```
-
-    Review the plan and type **yes** to confirm the destruction of resources.
-
-3. Verify in the AWS Management Console that all the resources have been successfully deleted.
+    Terraform will create the AWS resources based on the provided configuration. The output will show the created resources.
 
 ## Contributing
 
-Contributions are welcome! If you find any issues or want to enhance this project, please open an issue or submit a pull request.
-
-## License
-
-This project is licensed under the MIT License.
+Contributions to this project are welcome! If you find any issues or would like to suggest improvements, please open an issue or submit a pull request.
