@@ -7,5 +7,6 @@
 *.tfstate
 *.tfstate.backup
 *.lock.hcl
+variables.tf
 
 
